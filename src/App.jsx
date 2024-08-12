@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import StarshipSearch from "./components/StarshipSearch";
 import StarshipList from "./components/StarshipList";
-
-
 import * as starshipServices from './services/starshipServices';
 
 const App = () => {
@@ -13,13 +11,23 @@ const App = () => {
     setStarships(starshipData.results);
   };
 
+  const getSearchship = async (searchship) => {
+    const searchshipData = await starshipServices.searchStarship(searchship);
+    setStarships(searchshipData.results);
+  };
+  setStarships(searchshipData.results);
+  
+
   useEffect(() => {
-    getStarshipList();
-  }, []);
+    const getDeftaultStarshipList = async () => {
+      await getStarshipList();
+    }
+    getDeftaultStarshipList();
+    }, []);
 
   return (
     <>
-    <StarshipSearch />
+    <StarshipSearch getSearchship = {getSearchship} />
     <StarshipList starships={starships} />
     </>
   );
