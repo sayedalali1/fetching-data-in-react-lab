@@ -1,14 +1,25 @@
-import StarshipCard from "./StarshipCard";
+import StarshipCard from "./StarshipCard"
 
-const StarshipList = ({starships}) => {
-    return(
-        <>
-        <h1>Starships!</h1>
-        {starships.map((starship) => (
-            <StarshipCard  key={starship.name} starship={starship} />
-        ))}
+const StarshipList = ({ starships, searchResults }) => {
+  return (
+    <>
+      {searchResults.length ? (
+        <div>
+          <h2>Search Results</h2>
+          {searchResults.map((ship, i) => (
+            <StarshipCard ship={ship} key={i} />
+          ))}
+        </div>
+      ) : (
+        <div>
+          <h2>All Starships</h2>
+          {starships.map((ship, i) => (
+            <StarshipCard ship={ship} key={i} />
+          ))}
+        </div>
+      )}
     </>
-);
-};
+  )
+}
 
-export default StarshipList;
+export default StarshipList

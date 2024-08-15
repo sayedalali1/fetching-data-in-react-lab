@@ -1,30 +1,26 @@
-import { useState } from 'react';
+import { useState } from "react"
 
-const StarshipSearch = ({getSearchship}) => {
-    const [searchship, setSearchship] = useState('');
+const StarshipSearch = ({ search, setSearchResults }) => {
+  const [formData, setFormData] = useState("")
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        getSearchship(searchship);
-        setSearchship('');
-    };
+  const handleChange = (e) => {
+    setFormData(e.target.value)
+  }
 
-    return(
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const found = await search(formData)
+    setSearchResults(found.results)
+  }
 
-        <>
-        <h2>Search</h2>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="starship">Enter a starship's name:</label>
-                <input id="starship" type="text" value={searchship} onChange={(event) => {setSearchship(event.target.value)}} />
-                <button type="submit">Search!</button>
-            </form>
-        </>
+  return (
+    <>
+      <form onSubmit={handleSubmit}>
+        <input type="text" onChange={handleChange} />
+        <button type="submit">SEARCH</button>
+      </form>
+    </>
+  )
+}
 
-    );
-
-};
-
-
-
-
-export default StarshipSearch;
+export default StarshipSearch
